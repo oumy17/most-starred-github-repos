@@ -1,17 +1,23 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <div class="layout">
+      <div class="date-filter">
+        <Datepicker value="2019-11-22"></Datepicker>
+      </div>
+      <RepositoryItem></RepositoryItem>
+    </div>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import RepositoryItem from './components/RepositoryItem.vue'
+import Datepicker from 'vuejs-datepicker';
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    RepositoryItem,
+    Datepicker
   }
 }
 </script>
@@ -21,8 +27,17 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+  max-width: 900px;
+  margin: 0 auto;
+}
+.layout {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   margin-top: 60px;
+}
+.date-filter {
+  align-self: flex-end;
+  margin-bottom: 30px;
 }
 </style>
