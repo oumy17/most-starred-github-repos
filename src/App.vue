@@ -56,11 +56,13 @@ export default {
       this.page = 1;
       this.repos = [];
       this.infiniteId += 1;
+
     },
 
     infiniteHandler($state) {
-      const formattedDate = this.customFormatter(this.selectedDate)
-      const apiEndpoint = `https://api.github.com/search/repositories?q=created:>${formattedDate}&sort=stars&order=desc`;
+      const fromDate = moment(this.selectedDate).format("YYYY-MM-DD")
+      const toDate = moment(this.selectedDate).add(30, "days").format("YYYY-MM-DD")
+      const apiEndpoint = `https://api.github.com/search/repositories?q=created:${fromDate}..${toDate}&sort=stars&order=desc`;
       axios.get(apiEndpoint, {
         params: {
           page: this.page,
@@ -75,6 +77,9 @@ export default {
           $state.complete();
         }
       })
+      .catch((error) => {
+        alert(`${error.response.data.message}, please refresh the page or select another date`)
+      });
     },
   }
 }
