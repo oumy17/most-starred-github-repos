@@ -1,8 +1,9 @@
 <template>
   <div id="app">
     <div class="layout">
+      <h1> Get the most starred github repositories from the date you select until 30 days after</h1>
       <div class="date-filter">
-        <Datepicker v-model="selectedDate" @selected="onSelect"></Datepicker>
+        <Datepicker v-model="selectedDate" input-class="form-control" calendar-class="jo" @selected="onSelect"></Datepicker>
       </div>
       <RepositoryItem v-for="(repo, index) in repos" :key="index"
         :name="repo.name"
@@ -12,7 +13,8 @@
         :ownerAvatar="repo.owner.avatar_url"
         :ownerUsername="repo.owner.login"
         :ownerUrl="repo.owner.html_url"
-        :createdAt="repo.created_at">
+        :createdAt="repo.created_at"
+        :repoUrl="repo.html_url">
       </RepositoryItem>
       <infinite-loading :identifier="infiniteId" @infinite="infiniteHandler">
         <div slot="no-more">No more repositories</div>
@@ -85,22 +87,36 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
+@import url("https://fonts.googleapis.com/css?family=Lato:400,700,900");
+@import url('https://fonts.googleapis.com/css2?family=Montserrat');
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   max-width: 900px;
   margin: 0 auto;
+  font-family: 'Montserrat', sans-serif;
+  .layout {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 60px;
+
+    .date-filter {
+      align-self: flex-end;
+      margin-bottom: 30px;
+
+      .vdp-datepicker {
+
+        input[type=text] {
+          padding: 9px;
+          margin: 8px 0;
+        }
+      }
+    }
+  }
 }
-.layout {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  margin-top: 60px;
-}
-.date-filter {
-  align-self: flex-end;
-  margin-bottom: 30px;
-}
+
 </style>
