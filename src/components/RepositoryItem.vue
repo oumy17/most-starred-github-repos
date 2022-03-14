@@ -1,31 +1,37 @@
 <template>
   <div class="repo-wrapper">
     <div class="repo-img">
-      <img src="https://dummyimage.com/150x150/000/fff.png" alt="repository name">
+      <img :src="ownerAvatar" :alt="`Avatar of ${ownerUsername}`">
     </div>
     <div class="repo-details">
-      <span> Details </span>
-      <span> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-      </span>
+      <h2> {{ name }} </h2>
+      <p> {{ description }} </p>
+      <div> Stars {{ starsCount }} </div>
+      <div> Issues {{ issuesCount }} </div>
+      <div> Submitted on {{dateFormatted}} by {{ ownerUsername }} </div>
     </div>
   </div>
 </template>
 
 <script>
+import moment from "moment";
+
 export default {
   name: 'RepositoryItem',
   props: {
-    repository: {
-      name: String,
-      description: String,
-      starsCount: String,
-      issuesCount: String,
-      owner: {
-        username: String,
-        avatar: String
-      }
+    name: String,
+    description: String,
+    starsCount: Number,
+    issuesCount: Number,
+    ownerUsername: String,
+    ownerAvatar: String,
+    ownerUrl: String,
+    createdAt: String
+  },
+
+  computed: {
+    dateFormatted() {
+      return moment(this.createdAt).format("DD/MM/YYYY");
     }
   }
 }
@@ -39,12 +45,18 @@ export default {
   padding: 15px;
   display: flex;
   max-width: 950px;
+  margin-bottom: 40px;
 }
 .repo-img {
   width: 150px;
   height: 150px;
-  border: 1px solid;
   margin-right: 30px;
+  border: 1px solid lightgray;
+  border-radius: 4px;
+}
+img {
+  width: 100%;
+  height: 100%;
 }
 .repo-details {
   display: flex;
