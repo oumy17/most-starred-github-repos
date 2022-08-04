@@ -18,7 +18,7 @@
       </RepositoryItem>
       <infinite-loading :identifier="infiniteId" @infinite="infiniteHandler">
         <div slot="no-more">No more repositories</div>
-        <div slot="no-results">No results</div>
+        <div slot="no-results">No results to show</div>
       </infinite-loading>
     </div>
   </div>
